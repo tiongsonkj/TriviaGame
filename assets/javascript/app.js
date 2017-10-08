@@ -2,7 +2,7 @@
 var myQuestions = [
 	{
 		question: "Which NBA city has the team name Bulls?",
-		answer: {
+		answers: {
 			a: "Chicago",
 			b: "Cleveland",
 			c: "Milwaukee",
@@ -12,7 +12,7 @@ var myQuestions = [
 	},
 	{
 		question: "Which NBA city has the team name Cavaliers?",
-		answer: {
+		answers: {
 			a: "Chicago",
 			b: "Cleveland",
 			c: "Milwaukee",
@@ -22,7 +22,7 @@ var myQuestions = [
 	},	
 	{
 		question: "Which NBA city has the team name Pacers?",
-		answer: {
+		answers: {
 			a: "Chicago",
 			b: "Cleveland",
 			c: "Milwaukee",
@@ -32,7 +32,7 @@ var myQuestions = [
 	},
 	{
 		question: "Which NBA city has the team name Bucks?",
-		answer: {
+		answers: {
 			a: "Chicago",
 			b: "Cleveland",
 			c: "Milwaukee",
@@ -42,13 +42,50 @@ var myQuestions = [
 	},
 ];
 
+var quizContainer = document.getElementById('quiz');
+var resultsContainer = document.getElementById("results");
+var submitButton = document.getElementById("submit");
+
 // function for the quiz game
 function quizBuild() {
-	
+
 }
 
+// function to show the questions
+function showQuestions(questions, quizContainer) {
+	// empty array that will output the questions and answers
+	var output = [];
+	var answers;
 
+	// for each question
+	for (var i = 0; i < questions.length; i++) {
 
+		// reset the list of answers
+		answers = [];
+
+		// for each answer choice to the question..
+		for(letter in questions[i].answers) {
+
+			// add a radio button
+			answers.push(
+				'<label>' + '<input type="radio" name="question' + i + '"value="'
+				+ letter + '">' + questions[i].answers[letter]
+				+ '</label>'
+			);
+		}
+
+		// add this question and its answers to the output
+		output.push(
+			'<div class="question">' + questions[i].question + '</div>'
+			+ '<div class="answers">' + answers.join('') + '</div>'
+		);
+	}
+
+	// finally combine our output list into one string of html and put it on page
+	quizContainer.innerHTML = output.join('');
+}
+
+showQuestions(myQuestions, quizContainer);
 
 var time = 60;
 var correctAnswers;
