@@ -1,57 +1,89 @@
+// array of questions in object list
+var myQuestions = [
+	{
+		question: "Which NBA city has the team name Bulls?",
+		answer: {
+			a: "Chicago",
+			b: "Cleveland",
+			c: "Milwaukee",
+			d: "Indiana",
+		},
+		correctAnswer: "a",
+	},
+	{
+		question: "Which NBA city has the team name Cavaliers?",
+		answer: {
+			a: "Chicago",
+			b: "Cleveland",
+			c: "Milwaukee",
+			d: "Indiana",
+		},
+		correctAnswer: "b",
+	},	
+	{
+		question: "Which NBA city has the team name Pacers?",
+		answer: {
+			a: "Chicago",
+			b: "Cleveland",
+			c: "Milwaukee",
+			d: "Indiana",
+		},
+		correctAnswer: "d",
+	},
+	{
+		question: "Which NBA city has the team name Bucks?",
+		answer: {
+			a: "Chicago",
+			b: "Cleveland",
+			c: "Milwaukee",
+			d: "Indiana",
+		},
+		correctAnswer: "c",
+	},
+];
+
+// function for the quiz game
+function quizBuild() {
+	
+}
+
+
+
+
 var time = 60;
+var correctAnswers;
+var incorrectAnswers;
+var unanswered;
 // function for a start button that will start the trivia and go to a new page
-
-
-
-// function or jQuery for timeremaining. set timer to start countdown at 90 seconds?
-
-// use set Timeout when game ends. 
-// setTimeout(countdown, 1000 * 5);
+// HOW DO YOU GET IT TO LOAD ONTO A NEW PAGE!?!??!
+$("#start-button").on("click", function() {
+	countdown();
+});
 
 //  Variable that will hold our setInterval that runs the countdown
 var intervalId;
 
-var clockRunning = false;
+// var clockRunning = false;
 function countdown() {
   
-   // Use setInterval to start the count here and set the clock to running.
-    // if (!clockRunning) {
-    //     intervalId = setInterval(time.count, 1000);
-    //     clockRunning = true;
-    // }
-	$("#time-remaining").html("<h2>Time remaining: " + time + " seconds </h2>")
+	// calls function count and will continue calling it until time = 0
+	// function count will go down 1000 ms or 1 second
 	intervalId = setInterval(count, 1000);
 
+	// displays time countdown right away
+	$("#time-remaining").html("<h2>Time remaining: " + time + " seconds </h2>")
 }
-countdown();
 
 // function for time to go down
 function count() {
-	time--
+	// if timer is not 0 then subtract timer by 1, when timer is 0 then stop.
+	// WHEN TIMER HITS ZERO HOW DO YOU DISPLAY ANSWERS CORRECT/INCORRECT?
+    if (time != 0) {
+    	time--;
+    } else {
+    	return true;
+    }
 
-	var converted = timeConverter(time);
-
-	    // DONE: Use the variable we just created to show the converted time in the "display" div.
-    $("#time-remaining").html("<h2>Time remaining: " + converted + " seconds </h2>");
+	// Use the variable to show the timer in the "time-remaining" div.
+    $("#time-remaining").html("<h2>Time remaining: " + time + " seconds </h2>");
 }
-count();
-// function for timeConverter
-function timeConverter(t) {
-
-    var minutes = Math.floor(t / 60);
-    var seconds = t - (minutes * 60);
-
-    if (seconds < 10) {
-      seconds = "0" + seconds;
-    }
-
-    if (minutes === 0) {
-      minutes = "00";
-    }
-    else if (minutes < 10) {
-      minutes = "0" + minutes;
-    }
-
-    return minutes + ":" + seconds;
-}
-// question with response choices. put them in each div block
