@@ -1,0 +1,14 @@
+body {
+	background-image: url("../images/NBA_Playoffs_2017.jpeg");
+}
+
+#content {
+	background-color: #CECECE;
+	width: 50%;
+	padding-left: 50px;
+	margin: 100px 300px;
+}
+
+body div h2 {
+	color: blue;
+}

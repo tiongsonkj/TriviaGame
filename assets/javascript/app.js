@@ -1,3 +1,16 @@
+/*
+current problems/questions:
+
+1) How do I get the content to be new content 
+	when I click the start button and when I 
+	click the submit button or when the timer goes off?
+
+2) how do I get the unanswered to show in the questions that 
+	are not answered?
+
+*/
+
+
 // array of questions in object list
 var myQuestions = [
 	{
@@ -40,18 +53,64 @@ var myQuestions = [
 		},
 		correctAnswer: "c",
 	},
+	/*{
+		question: "Which NBA city has the team name Thunder?",
+		answers: {
+			a: "Oklahoma City",
+			b: "New York",
+			c: "San Antonio",
+			d: "Boston",
+		},
+		correctAnswer: "a",
+	},
+	{
+		question: "Which NBA city has the team name Celtics?",
+		answers: {
+			a: "Oklahoma City",
+			b: "New York",
+			c: "San Antonio",
+			d: "Boston",
+		},
+		correctAnswer: "d",
+	},
+	{
+		question: "Which NBA city has the team name Knicks?",
+		answers: {
+			a: "Oklahoma City",
+			b: "New York",
+			c: "San Antonio",
+			d: "Boston",
+		},
+		correctAnswer: "b",
+	},
+	{
+		question: "Which NBA city has the team name Spurs?",
+		answers: {
+			a: "Oklahoma City",
+			b: "New York",
+			c: "San Antonio",
+			d: "Boston",
+		},
+		correctAnswer: "c",
+	},*/
 ];
 
 var quizContainer = document.getElementById('quiz');
 var resultsContainer = document.getElementById("results");
 var submitButton = document.getElementById("submit");
 
+/*
 // function for the quiz game
 function quizBuild() {
-
+-----WILL I NEED THIS!???!!--------
 }
+*/
 
-// function to show the questions
+
+/*
+function to show the questions --> this will go in the quiz game function so that 
+when we run the quiz game function, this function will run 
+*/
 function showQuestions(questions, quizContainer) {
 	// empty array that will output the questions and answers
 	var output = [];
@@ -64,12 +123,12 @@ function showQuestions(questions, quizContainer) {
 		answers = [];
 
 		// for each answer choice to the question..
-		for(letter in questions[i].answers) {
+		for(var letter in questions[i].answers) {
 
 			// add a radio button
 			answers.push(
 				'<label>' + '<input type="radio" name="question' + i + '"value="'
-				+ letter + '">' + questions[i].answers[letter]
+				+ letter + '">' + " " + questions[i].answers[letter] + " "
 				+ '</label>'
 			);
 		}
@@ -85,7 +144,65 @@ function showQuestions(questions, quizContainer) {
 	quizContainer.innerHTML = output.join('');
 }
 
+// running the showQuestions function
 showQuestions(myQuestions, quizContainer);
+
+/*
+function that will get the results of the game
+*/
+function getResults(questions, quizContainer, resultsContainer) {
+
+	// get the answer containers from radio button which is from the quiz container
+	// .querySelectorAll will get the answers selected from the quizContainer
+	var answerContainers = quizContainer.querySelectorAll('.answers');
+
+	// keep track of user's answer and counter for number correct
+	var userAnswer = "";
+	var numberCorrect = 0;
+	var numberIncorrect = 0;
+	unanswered = 0;
+
+	// for each question...
+	for (var i = 0; i < questions.length; i++) {
+
+		// find user selected answer
+		// gets user answer from .answer
+		// gets answer from specific element, which is input from 76
+		// or if there is no answer it will return an undefined value.
+		// .value gets the value of this answer
+		userAnswer = (answerContainers[i].querySelector('input[name=question'
+			+ i + ']:checked') || {}).value;
+
+		// if the userAnswer is equal to the correct answer in the array...
+		if(userAnswer === questions[i].correctAnswer) {
+			numberCorrect++;
+		} 
+		// HOW DO YOU SHOW THE UNANSWERED?!?!?!
+		else if (userAnswer === {}){
+
+			unanswered++;
+		} else {
+			numberIncorrect++;
+		}
+	}
+
+	// shows in the resultsContainer variable which will...
+	// show the number correct in the results div block
+	// HOW DO YOU SHOW THE UNANSWERED?!!?!?!
+	resultsContainer.innerHTML = "All Done!" + "<br>" + "Correct Answers: " + numberCorrect + "<br>"
+	+ "IncorrectAnswers: " + numberIncorrect + "<br>"
+	+ "Unanswered: " + unanswered;
+}
+
+// function for when user clicks the submit button
+submitButton.onclick = function () {
+	getResults(myQuestions, quizContainer, resultsContainer);
+
+	// set time to zero to stop timer
+	time = 0;
+}
+
+
 
 var time = 60;
 var correctAnswers;
@@ -94,6 +211,7 @@ var unanswered;
 // function for a start button that will start the trivia and go to a new page
 // HOW DO YOU GET IT TO LOAD ONTO A NEW PAGE!?!??!
 $("#start-button").on("click", function() {
+	document.getElementById("start-button").style.display = "none";
 	countdown();
 });
 
@@ -118,6 +236,8 @@ function count() {
     if (time != 0) {
     	time--;
     } else {
+    	// when time runs out run the function getResults to show the results
+    	getResults(myQuestions, quizContainer, resultsContainer);
     	return true;
     }
 
