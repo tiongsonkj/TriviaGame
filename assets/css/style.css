@@ -11,4 +11,55 @@ body {
 
 body div h2 {
 	color: blue;
+	font-size: 50px;
+}
+
+#start-button {
+	font-size: 32px;
+	margin: 50px;
+	padding: 10px 20px;
+	background-color: white;
+	transition-duration: 0.4s;
+	cursor: pointer;
+	border: 2px solid #008CBA;
+}
+
+#start-button:hover {
+	background-color: #555555;
+	color: white;
+}
+
+#submit {
+	font-size: 32px;
+	margin: 50px;
+	padding: 10px 20px;
+	background-color: white;
+	transition-duration: 0.4s;
+	cursor: pointer;
+	border: 2px solid #008CBA;
+
+}
+
+#submit:hover {
+	background-color: #555555;
+	color: white;
+}
+
+#quiz {
+
+}
+
+.question {
+	font-size: 24px;
+}
+
+.answers {
+	font-size: 18px;
+	margin-top: 10px;
+	margin-bottom: 50px; 
+}
+
+#results {
+	font-size: 24px;
+	line-height: 2.0;
 }

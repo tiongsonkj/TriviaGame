@@ -1,9 +1,8 @@
 /*
 current problems/questions:
 
-1) How do I get the content to be new content 
-	when I click the start button and when I 
-	click the submit button or when the timer goes off?
+1) How do I get the original content to hide until the start
+	button is chosen?
 
 2) how do I get the unanswered to show in the questions that 
 	are not answered?
@@ -198,8 +197,17 @@ function getResults(questions, quizContainer, resultsContainer) {
 submitButton.onclick = function () {
 	getResults(myQuestions, quizContainer, resultsContainer);
 
+	// takes out the display of the whole quiz when button is pressed
+	document.getElementById("quiz").style.display = "none";
+
+	// takes out submit button when button is pressed.
+	document.getElementById("submit").style.display = "none";
+
 	// set time to zero to stop timer
 	time = 0;
+
+	// takes out timer when button is pressed.
+	document.getElementById("time-remaining").style.display = "none";
 }
 
 
@@ -211,6 +219,8 @@ var unanswered;
 // function for a start button that will start the trivia and go to a new page
 // HOW DO YOU GET IT TO LOAD ONTO A NEW PAGE!?!??!
 $("#start-button").on("click", function() {
+
+	// takes out the display of the start button when button is pressed
 	document.getElementById("start-button").style.display = "none";
 	countdown();
 });
@@ -238,6 +248,12 @@ function count() {
     } else {
     	// when time runs out run the function getResults to show the results
     	getResults(myQuestions, quizContainer, resultsContainer);
+
+    	/*when time runs out, clear out quiz, submit button, 
+    	and time remaining on the page.*/
+		document.getElementById("quiz").style.display = "none";
+		document.getElementById("submit").style.display = "none";
+		document.getElementById("time-remaining").style.display = "none";
     	return true;
     }
 
