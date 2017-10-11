@@ -1,15 +1,3 @@
-/*
-current problems/questions:
-
-1) How do I get the original content to hide until the start
-	button is chosen?
-
-2) how do I get the unanswered to show in the questions that 
-	are not answered?
-
-*/
-
-
 // array of questions in object list
 var myQuestions = [
 	{
@@ -52,7 +40,7 @@ var myQuestions = [
 		},
 		correctAnswer: "c",
 	},
-	/*{
+	{
 		question: "Which NBA city has the team name Thunder?",
 		answers: {
 			a: "Oklahoma City",
@@ -91,19 +79,12 @@ var myQuestions = [
 			d: "Boston",
 		},
 		correctAnswer: "c",
-	},*/
+	},
 ];
 
-var quizContainer = document.getElementById('quiz');
+var quizContainer = document.getElementById("quiz");
 var resultsContainer = document.getElementById("results");
 var submitButton = document.getElementById("submit");
-
-/*
-// function for the quiz game
-function quizBuild() {
------WILL I NEED THIS!???!!--------
-}
-*/
 
 
 /*
@@ -113,13 +94,16 @@ when we run the quiz game function, this function will run
 function showQuestions(questions, quizContainer) {
 	// empty array that will output the questions and answers
 	var output = [];
-	var answers;
+	
 
-	// for each question
+	// for each question...
 	for (var i = 0; i < questions.length; i++) {
 
 		// reset the list of answers
-		answers = [];
+		// CREATE A DIV TAG WITH CLASS QUESTION and append the div ...
+		// MOVE THE EMPTY ANSWERS ARRAY UP ABOVE
+		// PUSH CORRECT ANSWERS INTO ARRAY
+		var answers = [];
 
 		// for each answer choice to the question..
 		for(var letter in questions[i].answers) {
@@ -139,12 +123,10 @@ function showQuestions(questions, quizContainer) {
 		);
 	}
 
+
 	// finally combine our output list into one string of html and put it on page
 	quizContainer.innerHTML = output.join('');
 }
-
-// running the showQuestions function
-showQuestions(myQuestions, quizContainer);
 
 /*
 function that will get the results of the game
@@ -164,30 +146,28 @@ function getResults(questions, quizContainer, resultsContainer) {
 	// for each question...
 	for (var i = 0; i < questions.length; i++) {
 
-		// find user selected answer
-		// gets user answer from .answer
-		// gets answer from specific element, which is input from 76
-		// or if there is no answer it will return an undefined value.
-		// .value gets the value of this answer
-		userAnswer = (answerContainers[i].querySelector('input[name=question'
-			+ i + ']:checked') || {}).value;
-
-		// if the userAnswer is equal to the correct answer in the array...
-		if(userAnswer === questions[i].correctAnswer) {
-			numberCorrect++;
-		} 
-		// HOW DO YOU SHOW THE UNANSWERED?!?!?!
-		else if (userAnswer === {}){
+		// if there is no checked answer, then add to counter of unanswered
+		// if there is a correct checked answer, add to counter of numCorrect
+		// else add to number incorrect
+		if(!$('input:radio[name=question'+ i + ']').is(":checked")) {
 
 			unanswered++;
-		} else {
+
+		} else if($('input:radio[name=question'+ i + ']:checked').val() === questions[i].correctAnswer) {
+			numberCorrect++;
+		} 
+		else {
 			numberIncorrect++;
 		}
 	}
 
+	// empty the quiz div
+	$("#quiz").empty();
+
+	// stop timer counter 
+	clearInterval(intervalId);
 	// shows in the resultsContainer variable which will...
 	// show the number correct in the results div block
-	// HOW DO YOU SHOW THE UNANSWERED?!!?!?!
 	resultsContainer.innerHTML = "All Done!" + "<br>" + "Correct Answers: " + numberCorrect + "<br>"
 	+ "IncorrectAnswers: " + numberIncorrect + "<br>"
 	+ "Unanswered: " + unanswered;
@@ -212,16 +192,18 @@ submitButton.onclick = function () {
 
 
 
-var time = 60;
+var time = 30;
 var correctAnswers;
 var incorrectAnswers;
 var unanswered;
 // function for a start button that will start the trivia and go to a new page
-// HOW DO YOU GET IT TO LOAD ONTO A NEW PAGE!?!??!
 $("#start-button").on("click", function() {
 
 	// takes out the display of the start button when button is pressed
 	document.getElementById("start-button").style.display = "none";
+
+	// runs show question function to show questions when page starts
+	showQuestions(myQuestions, quizContainer);
 	countdown();
 });
 
@@ -242,7 +224,6 @@ function countdown() {
 // function for time to go down
 function count() {
 	// if timer is not 0 then subtract timer by 1, when timer is 0 then stop.
-	// WHEN TIMER HITS ZERO HOW DO YOU DISPLAY ANSWERS CORRECT/INCORRECT?
     if (time != 0) {
     	time--;
     } else {
