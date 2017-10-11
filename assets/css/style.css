@@ -30,6 +30,7 @@ body div h2 {
 }
 
 #submit {
+	display:none;
 	font-size: 32px;
 	margin: 50px;
 	padding: 10px 20px;

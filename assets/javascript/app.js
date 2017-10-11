@@ -205,6 +205,8 @@ $("#start-button").on("click", function() {
 	// runs show question function to show questions when page starts
 	showQuestions(myQuestions, quizContainer);
 	countdown();
+
+	$("#submit").css("display", "block");
 });
 
 //  Variable that will hold our setInterval that runs the countdown
